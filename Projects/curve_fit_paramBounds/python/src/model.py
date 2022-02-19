@@ -68,6 +68,10 @@ def compareData(exp_params, fit_params):
     return (x_data, y_data_exp, y_data_fit)
 
 
+# def find_fit_params(model_function,p0,param_bounds):
+#     xda
+#     fitted_params,pcov=curve_fit(model_function,)
+
 def do_model(param_set1, param_set2):
     generateTestData(param_set1)
     compareData(param_set1, param_set2)
