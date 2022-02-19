@@ -86,9 +86,9 @@ def compareData(exp_params, fit_params):
 
 
 def find_fit_params(model_function, exp_data, param_bounds):
-    x_data, y_data = data
-    fitted_params, _ = curve_fit(model_function, x_data, y_data, bounds=[
-        (1, 1.7), (0.1, 1.8), (2, 3.5)])
+    x_data, y_data = exp_data
+    fitted_params, _ = curve_fit(
+        model_function, x_data, y_data, bounds=param_bounds)
 
     return fitted_params
 
@@ -100,9 +100,12 @@ def do_model(param_set1, param_set2):
 
 
 def main():
-    generate_param_set = lambda: [[1, 2, 3], [1.6, 1, 4]]
-    param_set1, param_set2 = generate_param_set()
-    do_model(param_set1, param_set2)
+    generate_param_set = lambda: [1.6, 1, 4]
+    test_params = generate_param_set()
+
+    exp_data = [generate_x_data(), generate_y_data(test_params)]
+    param_bounds = ([1, 0.1, 2], [1.7, 1.8, 3.88])
+    P_0 = find_fit_params(model_function, exp_data, param_bounds)
 
 
 if __name__ == '__main__':
