@@ -106,6 +106,10 @@ def main():
     exp_data = [generate_x_data(), generate_y_data(test_params)]
     param_bounds = ([1, 0.1, 2], [1.7, 1.8, 3.88])
     P_0 = find_fit_params(model_function, exp_data, param_bounds)
+    fitpar1, fitpar2, fitpar3 = P_0
+
+    do_model(test_params, [round(fitpar1, 3),
+                           round(fitpar2, 3), round(fitpar3, 3)])
 
 
 if __name__ == '__main__':
