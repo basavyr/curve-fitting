@@ -26,11 +26,28 @@ def model_function(x, p1, p2, p3):
     return f
 
 
+def generate_x_data():
+    """
+    - use the python numpy module to generate an array that will serve as the x-data for the model
+    """
+    x_data_raw = np.arange(-Bounds.XLIM, Bounds.XLIM +
+                           Bounds.STEP, Bounds.STEP)
+    x_data = [round(x, 3) for x in x_data_raw]
+
+    return x_data
+
+
+def generate_y_data(param_set):
+    x_data = generate_x_data()
+    y_data = [round(model_function(x, param_set[0],
+                                   param_set[1], param_set[2]), 3) for x in x_data]
+    return y_data
+
+
 def generateTestData(parameter_set):
     p1, p2, p3 = parameter_set
 
-    x_data = np.arange(-Bounds.XLIM, Bounds.XLIM + Bounds.STEP, Bounds.STEP)
-    x_data = [round(x, 3) for x in x_data]
+    x_data = generate_x_data()
     y_data_exp = [round(model_function(x, p1, p2, p3), 3) for x in x_data]
 
     with open('data.dat', 'w+') as f:
@@ -68,9 +85,13 @@ def compareData(exp_params, fit_params):
     return (x_data, y_data_exp, y_data_fit)
 
 
-# def find_fit_params(model_function,p0,param_bounds):
-#     xda
-#     fitted_params,pcov=curve_fit(model_function,)
+def find_fit_params(model_function, exp_data, param_bounds):
+    x_data, y_data = data
+    fitted_params, _ = curve_fit(model_function, x_data, y_data, bounds=[
+        (1, 1.7), (0.1, 1.8), (2, 3.5)])
+
+    return fitted_params
+
 
 def do_model(param_set1, param_set2):
     generateTestData(param_set1)
