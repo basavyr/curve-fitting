@@ -32,16 +32,16 @@ def generate_data_from_params(params):
 
     y_data_exp = [model_function(x, p1, p2, p3) for x in x_data]
 
-    print(y_data_exp)
+    y_data_th = [y + rd.choice([-1, 1]) *
+                 rd.uniform(0.05, 0.15) * y for y in y_data_exp]
+
+    print(x_data, y_data_exp, y_data_th)
 
 
 def main():
     x_data = generate_x_data(10)
     test_params = [3, 4, 0]
-    # generate_data_from_params(test_params)
-    # u = lambda x: (2 * x) + 0.5 if x % 2 == 0 else (2 * x) - 0.5
-    w = generate_x_data(10)
-    print(w)
+    generate_data_from_params(test_params)
 
 
 if __name__ == '__main__':
