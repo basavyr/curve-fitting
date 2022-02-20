@@ -27,21 +27,22 @@ def generate_x_data(size):
 
 
 def generate_data_from_params(params):
-    x_data = generate_x_data(10)
+    x_data = generate_x_data(30)
     p1, p2, p3 = params
 
     y_data_exp = [model_function(x, p1, p2, p3) for x in x_data]
 
     y_data_th = [y + rd.choice([-1, 1]) *
-                 rd.uniform(0.05, 0.15) * y for y in y_data_exp]
+                 rd.uniform(0.05, 0.08) * y for y in y_data_exp]
 
-    print(x_data, y_data_exp, y_data_th)
+    return [x_data, y_data_exp, y_data_th]
 
 
 def main():
     x_data = generate_x_data(10)
     test_params = [3, 4, 0]
-    generate_data_from_params(test_params)
+    w_data = generate_data_from_params(test_params)
+    plotter.plot_data(w_data)
 
 
 if __name__ == '__main__':
