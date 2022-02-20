@@ -77,15 +77,27 @@ def generate_model_data(x_data, params):
 
 
 def fit_model(model_function, data):
-    1
+    x_data, y_data = data
+
+    fitted_params, _ = curve_fit(model_function, x_data, y_data)
+
+    return fitted_params
 
 
 def main():
     test_params = [0.02, 0.3, 1]
+
     spin_data = generate_spin_bands(15, test_params)
     model_data = generate_model_data(spin_data, test_params)
-    print(spin_data)
-    print(model_data)
+
+    tupled_data = ([x[0] for x in spin_data], [x[1]
+                                               for x in spin_data], [x[2] for x in spin_data])
+
+    data = [tupled_data, model_data]
+
+    P = fit_model(model_function, data)
+
+    print(P)
 
 
 if __name__ == '__main__':
