@@ -1,5 +1,11 @@
 import random as rd
 
+import operator
+
+import numpy as np
+
+from scipy.optimize import curve_fit
+
 
 def generate_x_data(size, phonon1, phonon2, even_state):
     phonon = lambda: rd.choice([0, 1])
@@ -45,7 +51,7 @@ def model_function(X, a, b, c):
     return f
 
 
-def generate_data_from_params(size, params):
+def generate_spin_bands(size, params):
     even_spins, odd_spins = create_experimental_data(size)
     band1 = [w for w in even_spins]
     band2 = [w for w in odd_spins]
@@ -55,13 +61,31 @@ def generate_data_from_params(size, params):
     model_band_1 = [model_function(x, p1, p2, p3) for x in band1]
     model_band_2 = [model_function(x, p1, p2, p3) for x in band2]
 
-    print(model_band_1)
-    print(model_band_2)
+    model_data = model_band_1 + model_band_2
+
+    bands = band1 + band2
+    bands.sort(key=operator.itemgetter(0))
+
+    return bands
+
+
+def generate_model_data(x_data, params):
+    p1, p2, p3 = params
+    y_data = [model_function(X, p1, p2, p3) for X in x_data]
+
+    return y_data
+
+
+def fit_model(model_function, data):
+    1
 
 
 def main():
-    test_params = [1, 2, 0]
-    generate_data_from_params(15, test_params)
+    test_params = [0.02, 0.3, 1]
+    spin_data = generate_spin_bands(15, test_params)
+    model_data = generate_model_data(spin_data, test_params)
+    print(spin_data)
+    print(model_data)
 
 
 if __name__ == '__main__':
