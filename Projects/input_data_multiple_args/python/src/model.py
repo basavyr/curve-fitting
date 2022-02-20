@@ -7,6 +7,9 @@ import numpy as np
 from scipy.optimize import curve_fit
 
 
+import plotter
+
+
 def generate_x_data(size, phonon1, phonon2, even_state):
     phonon = lambda: rd.choice([0, 1])
 
@@ -97,7 +100,10 @@ def main():
 
     P = fit_model(model_function, data)
 
-    print(P)
+    TW = [data[0][0], data[1], generate_model_data(
+        generate_spin_bands(15, P), P)]
+
+    plotter.simple_plotter(TW)
 
 
 if __name__ == '__main__':
