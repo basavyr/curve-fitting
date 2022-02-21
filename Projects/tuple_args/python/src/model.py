@@ -14,8 +14,10 @@ def model_function(X, a, b, c, d):
     # f = a * (pow(spins, 5)) * (even_phonons + 0.5) + \
     #     b * (pow(spins, 3)) * (odd_phonons + 0.5) + c * d * spins * constants
     f = np.round(a * pow(spins, 5) * even_phonons + 1, 3)
+    f1 = np.round(X[0] + X[1])
+    f2 = np.round(spins + even_phonons)
 
-    return f
+    return f,f1, f2
 
 
 def generate_x_data(size):
