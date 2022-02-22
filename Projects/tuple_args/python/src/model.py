@@ -30,7 +30,7 @@ def generate_x_data(size):
 
 
 def main():
-    X = generate_x_data(8)
+    X = generate_x_data(20)
 
     test_params = [0.3, 1, 2, 3, 4]
 
